@@ -2,7 +2,7 @@
 
 ### Important Links:
 
-- [StayVista Starter Template](https://github.com/shakilahmedatik/b9-stayVista-starter-template)
+- [StayVista Starter Template](https://github.com/mdfirozkabir/StayVista-Starter-templete)
 - [Project Requirement Doc](https://docs.google.com/document/d/1rzueKvZTinMb3XY7cuDNH0S0d_l8CflG1H95VUi2Dto/edit?usp=sharing)
 
 ### All the packages used in this project:
