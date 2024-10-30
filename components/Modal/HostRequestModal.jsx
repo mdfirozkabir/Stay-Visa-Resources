@@ -1,18 +1,10 @@
-import PropTypes from 'prop-types'
-import {
-  Dialog,
-  Transition,
-  TransitionChild,
-  DialogTitle,
-  DialogPanel,
-} from '@headlessui/react'
+import { Dialog, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
-
-const HostModal = ({ closeModal, isOpen }) => {
+const HostModal = ({ modalHandler, closeModal, isOpen, email }) => {
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as='div' className='relative z-10' onClose={closeModal}>
-        <TransitionChild
+        <Transition.Child
           as={Fragment}
           enter='ease-out duration-300'
           enterFrom='opacity-0'
@@ -22,11 +14,11 @@ const HostModal = ({ closeModal, isOpen }) => {
           leaveTo='opacity-0'
         >
           <div className='fixed inset-0 bg-black bg-opacity-25' />
-        </TransitionChild>
+        </Transition.Child>
 
         <div className='fixed inset-0 overflow-y-auto'>
           <div className='flex min-h-full items-center justify-center p-4 text-center'>
-            <TransitionChild
+            <Transition.Child
               as={Fragment}
               enter='ease-out duration-300'
               enterFrom='opacity-0 scale-95'
@@ -35,13 +27,13 @@ const HostModal = ({ closeModal, isOpen }) => {
               leaveFrom='opacity-100 scale-100'
               leaveTo='opacity-0 scale-95'
             >
-              <DialogPanel className='w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all'>
-                <DialogTitle
+              <Dialog.Panel className='w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all'>
+                <Dialog.Title
                   as='h3'
                   className='text-lg font-medium text-center leading-6 text-gray-900'
                 >
                   Become A Host!
-                </DialogTitle>
+                </Dialog.Title>
                 <div className='mt-2'>
                   <p className='text-sm text-gray-500'>
                     Please read all the terms & conditions before becoming a
@@ -53,6 +45,7 @@ const HostModal = ({ closeModal, isOpen }) => {
                   <button
                     type='button'
                     className='inline-flex justify-center rounded-md border border-transparent bg-green-100 px-4 py-2 text-sm font-medium text-green-900 hover:bg-green-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2'
+                    onClick={() => modalHandler(email)}
                   >
                     Continue
                   </button>
@@ -64,18 +57,13 @@ const HostModal = ({ closeModal, isOpen }) => {
                     Cancel
                   </button>
                 </div>
-              </DialogPanel>
-            </TransitionChild>
+              </Dialog.Panel>
+            </Transition.Child>
           </div>
         </div>
       </Dialog>
     </Transition>
   )
-}
-
-HostModal.propTypes = {
-  closeModal: PropTypes.func,
-  isOpen: PropTypes.bool,
 }
 
 export default HostModal

@@ -1,5 +1,15 @@
-import { categories } from '../Categories/CategoriesData'
-const AddRoomForm = () => {
+import React from 'react'
+import { DateRange } from 'react-date-range'
+import { TbFidgetSpinner } from 'react-icons/tb'
+import { categories } from '../Categories/categoriesData'
+const AddRoomForm = ({
+  handleSubmit,
+  dates,
+  handleDates,
+  loading = false,
+  handleImageChange,
+  uploadButtonText,
+}) => {
   return (
     <div className='w-full min-h-[calc(100vh-40px)] flex flex-col justify-center items-center text-gray-800 rounded-xl bg-gray-50'>
       <form>
@@ -40,7 +50,7 @@ const AddRoomForm = () => {
               <label htmlFor='location' className='block text-gray-600'>
                 Select Availability Range
               </label>
-              {/* Calender */}
+              <DateRange rangeColors={['#F43F5E']} />
             </div>
           </div>
           <div className='space-y-6'>
@@ -155,7 +165,11 @@ const AddRoomForm = () => {
           type='submit'
           className='w-full p-3 mt-5 text-center font-medium text-white transition duration-200 rounded shadow-md bg-rose-500'
         >
-          Save & Continue
+          {loading ? (
+            <TbFidgetSpinner className='m-auto animate-spin' size={24} />
+          ) : (
+            'Save & Continue'
+          )}
         </button>
       </form>
     </div>

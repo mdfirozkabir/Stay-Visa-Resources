@@ -1,9 +1,19 @@
 import React from 'react'
+import { DateRange } from 'react-date-range'
+import { TbFidgetSpinner } from 'react-icons/tb'
 import { categories } from '../Categories/categoriesData'
-const UpdateRoomForm = () => {
+const UpdateRoomForm = ({
+  handleSubmit,
+  dates,
+  handleDates,
+  loading,
+  handleImageUpdate,
+  roomData,
+  setRoomData,
+}) => {
   return (
     <div className='w-full min-h-[calc(100vh-40px)] flex flex-col justify-center items-center text-gray-800 rounded-xl bg-gray-50'>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className='grid grid-cols-1 gap-10'>
           <div className='space-y-1 text-sm'>
             <label htmlFor='location' className='block text-gray-600'>
@@ -12,6 +22,10 @@ const UpdateRoomForm = () => {
             <input
               className='w-full px-4 py-3 text-gray-800 border border-rose-300 focus:outline-rose-500 rounded-md '
               name='location'
+              value={roomData?.location}
+              onChange={event =>
+                setRoomData({ ...roomData, location: event.target.value })
+              }
               id='location'
               type='text'
               placeholder='Location'
@@ -23,6 +37,10 @@ const UpdateRoomForm = () => {
               Title
             </label>
             <input
+              value={roomData?.title}
+              onChange={event =>
+                setRoomData({ ...roomData, title: event.target.value })
+              }
               className='w-full px-4 py-3 text-gray-800 border border-rose-300 focus:outline-rose-500 rounded-md '
               name='title'
               id='title'
@@ -37,7 +55,11 @@ const UpdateRoomForm = () => {
               Category
             </label>
             <select
+              onChange={event =>
+                setRoomData({ ...roomData, category: event.target.value })
+              }
               required
+              defaultValue={roomData.category}
               className='w-full px-4 py-3 border-rose-300 focus:outline-rose-500 rounded-md'
               name='category'
             >
@@ -53,7 +75,13 @@ const UpdateRoomForm = () => {
             <label htmlFor='location' className='block text-gray-600'>
               Select Availability Range
             </label>
-            <div className='flex justify-center pt-2'>{/* Calender */}</div>
+            <div className='flex justify-center pt-2'>
+              <DateRange
+                onChange={handleDates}
+                ranges={[dates]}
+                rangeColors={['#F43F5E']}
+              />
+            </div>
           </div>
 
           <div className=' p-4 bg-white w-full  m-auto rounded-lg'>
@@ -61,6 +89,9 @@ const UpdateRoomForm = () => {
               <div className='flex flex-col w-max mx-auto text-center'>
                 <label>
                   <input
+                    onChange={event => {
+                      handleImageUpdate(event.target.files[0])
+                    }}
                     className='text-sm cursor-pointer w-36 hidden'
                     type='file'
                     name='image'
@@ -81,6 +112,10 @@ const UpdateRoomForm = () => {
                 Price
               </label>
               <input
+                value={roomData?.price}
+                onChange={event =>
+                  setRoomData({ ...roomData, price: event.target.value })
+                }
                 className='w-full px-4 py-3 text-gray-800 border border-rose-300 focus:outline-rose-500 rounded-md '
                 name='price'
                 id='price'
@@ -95,6 +130,10 @@ const UpdateRoomForm = () => {
                 Total guest
               </label>
               <input
+                value={roomData?.guests}
+                onChange={event =>
+                  setRoomData({ ...roomData, guests: event.target.value })
+                }
                 className='w-full px-4 py-3 text-gray-800 border border-rose-300 focus:outline-rose-500 rounded-md '
                 name='total_guest'
                 id='guest'
@@ -111,6 +150,10 @@ const UpdateRoomForm = () => {
                 Bedrooms
               </label>
               <input
+                value={roomData?.bedrooms}
+                onChange={event =>
+                  setRoomData({ ...roomData, bedrooms: event.target.value })
+                }
                 className='w-full px-4 py-3 text-gray-800 border border-rose-300 focus:outline-rose-500 rounded-md '
                 name='bedrooms'
                 id='bedrooms'
@@ -125,6 +168,10 @@ const UpdateRoomForm = () => {
                 Bathrooms
               </label>
               <input
+                value={roomData?.bathrooms}
+                onChange={event =>
+                  setRoomData({ ...roomData, bathrooms: event.target.value })
+                }
                 className='w-full px-4 py-3 text-gray-800 border border-rose-300 focus:outline-rose-500 rounded-md '
                 name='bathrooms'
                 id='bathrooms'
@@ -141,6 +188,10 @@ const UpdateRoomForm = () => {
             </label>
 
             <textarea
+              value={roomData?.description}
+              onChange={event =>
+                setRoomData({ ...roomData, description: event.target.value })
+              }
               id='description'
               className='block rounded-md focus:rose-300 w-full h-32 px-4 py-3 text-gray-800  border border-rose-300 focus:outline-rose-500 '
               name='description'
@@ -152,7 +203,11 @@ const UpdateRoomForm = () => {
           type='submit'
           className='w-full p-3 mt-5 text-center font-medium text-white transition duration-200 rounded shadow-md bg-rose-500'
         >
-          Update
+          {loading ? (
+            <TbFidgetSpinner className='m-auto animate-spin' size={24} />
+          ) : (
+            'Update'
+          )}
         </button>
       </form>
     </div>
